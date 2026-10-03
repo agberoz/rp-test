@@ -1,0 +1,15 @@
+# Changelog
+
+## [1.0.1](https://github.com/agberoz/rp-test/compare/v1.0.0...v1.0.1) (2026-10-03)
+
+
+### Bug Fixes
+
+* note merge-commit requirement for promotion PRs ([17f6a52](https://github.com/agberoz/rp-test/commit/17f6a52c2b4a79a78b404fd1183f0edd1ecb3164))
+
+## 1.0.0 (2026-10-03)
+
+
+### Features
+
+* document release flow ([623d5d6](https://github.com/agberoz/rp-test/commit/623d5d63a6942c8dc4ea7bc242b0bdf11de4c60e))
