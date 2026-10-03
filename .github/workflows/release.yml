@@ -1,0 +1,46 @@
+# staging2 (QA -> hal dev)
+#   on merge            -> release-please opens/updates the release PR to staging2
+#   release PR merged   -> release-please creates the tag + GitHub release,
+#                          then opens PR staging2 -> staging (approval required, auto-merge)
+#
+# The promotion runs in this same workflow because tags created with
+# GITHUB_TOKEN do not trigger other workflows.
+name: release
+
+on:
+  push:
+    branches: [staging2]
+
+concurrency:
+  group: release-staging2
+  cancel-in-progress: false
+
+permissions:
+  contents: write
+  pull-requests: write
+
+jobs:
+  release-please:
+    runs-on: ubuntu-latest
+    outputs:
+      release_created: ${{ steps.release.outputs.release_created }}
+      tag_name: ${{ steps.release.outputs.tag_name }}
+      version: ${{ steps.release.outputs.version }}
+    steps:
+      - id: release
+        uses: googleapis/release-please-action@v4
+        with:
+          token: ${{ secrets.RELEASE_TOKEN || github.token }}
+          target-branch: staging2
+          config-file: release-please-config.json
+          manifest-file: .release-please-manifest.json
+
+  promote:
+    needs: release-please
+    if: needs.release-please.outputs.release_created == 'true'
+    uses: ./.github/workflows/_promote.yml
+    with:
+      source: staging2
+      target: staging
+      auto_merge: true
+    secrets: inherit

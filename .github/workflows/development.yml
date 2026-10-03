@@ -1,0 +1,22 @@
+# Integrations -> development -> PR to staging2
+name: development
+
+on:
+  push:
+    branches: [development]
+
+concurrency:
+  group: promote-development
+  cancel-in-progress: true
+
+permissions:
+  contents: write
+  pull-requests: write
+
+jobs:
+  promote:
+    uses: ./.github/workflows/_promote.yml
+    with:
+      source: development
+      target: staging2
+    secrets: inherit
