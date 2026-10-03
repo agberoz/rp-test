@@ -1,7 +1,7 @@
 # Environment pipelines:
-#   push staging -> deploy staging -> PR staging -> preprod (tags in description, needs approval)
-#   push preprod -> deploy preprod -> PR preprod -> prod    (tags in description, needs approval)
-#   push prod    -> deploy prod
+#   push staging -> record release -> PR staging -> preprod (tags in description, needs approval)
+#   push preprod -> record release -> PR preprod -> prod    (tags in description, needs approval)
+#   push prod    -> record release
 name: pipeline
 
 on:
@@ -17,7 +17,7 @@ permissions:
   pull-requests: write
 
 jobs:
-  deploy:
+  release:
     runs-on: ubuntu-latest
     environment: ${{ github.ref_name }}
     steps:
@@ -29,17 +29,14 @@ jobs:
         id: version
         run: echo "tag=$(git describe --tags --abbrev=0 2>/dev/null || echo untagged)" >> "$GITHUB_OUTPUT"
 
-      # TODO: replace with the real build/deploy for this environment.
-      - name: Deploy
+      - name: Record release
         env:
           ENVIRONMENT: ${{ github.ref_name }}
           VERSION: ${{ steps.version.outputs.tag }}
-        run: |
-          echo "Deploying $VERSION to $ENVIRONMENT"
-          echo "Deployed \`$VERSION\` to **$ENVIRONMENT**" >> "$GITHUB_STEP_SUMMARY"
+        run: echo "\`$VERSION\` is now on **$ENVIRONMENT**" >> "$GITHUB_STEP_SUMMARY"
 
   promote:
-    needs: deploy
+    needs: release
     if: github.ref_name != 'prod'
     uses: ./.github/workflows/_promote.yml
     with:
