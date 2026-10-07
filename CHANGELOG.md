@@ -1,5 +1,12 @@
 # Changelog
 
+## [1.1.0](https://github.com/agberoz/rp-test/compare/v1.0.1...v1.1.0) (2026-10-07)
+
+
+### Features
+
+* decorations ([62029e0](https://github.com/agberoz/rp-test/commit/62029e0a7e4161dcea46a833da622ea56d1c995a))
+
 ## [1.0.1](https://github.com/agberoz/rp-test/compare/v1.0.0...v1.0.1) (2026-10-03)
 
 
