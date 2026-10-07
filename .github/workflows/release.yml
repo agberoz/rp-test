@@ -39,7 +39,7 @@ jobs:
     name: Record release on staging2
     needs: release-please
     if: needs.release-please.outputs.release_created == 'true'
-    runs-on: self-hosted
+    runs-on: ubuntu-latest
     environment:
       name: staging2
       url: ${{ needs.release-please.outputs.html_url }}
