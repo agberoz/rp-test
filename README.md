@@ -11,4 +11,4 @@ Promotion PR descriptions list the release tags being promoted. Use conventional
 commits (`feat:`, `fix:`, …) so release-please can version releases.
 
 Merge promotion PRs with a merge commit (not squash) so release tags stay
-reachable from every downstream branch. 
+reachable from every downstream branch. a
