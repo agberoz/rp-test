@@ -34,6 +34,20 @@ jobs:
           target-branch: staging2
           config-file: release-please-config.json
           manifest-file: .release-please-manifest.json
+    
+  record-release:
+    name: Record release on staging2
+    needs: release-please
+    if: needs.release-please.outputs.release_created == 'true'
+    runs-on: self-hosted
+    environment:
+      name: staging2
+      url: ${{ needs.release-please.outputs.html_url }}
+    steps:
+      - name: Record release
+        env:
+          VERSION: ${{ needs.release-please.outputs.tag_name }}
+        run: echo "\`$VERSION\` is now on **staging2**" >> "$GITHUB_STEP_SUMMARY"
 
   promote:
     needs: release-please
