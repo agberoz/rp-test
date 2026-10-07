@@ -1,5 +1,12 @@
 # Changelog
 
+## [1.3.0](https://github.com/agberoz/rp-test/compare/v1.2.0...v1.3.0) (2026-10-07)
+
+
+### Features
+
+* asp ([4f48d8b](https://github.com/agberoz/rp-test/commit/4f48d8b555a2c1fed54f015dbbf861e7d4e12766))
+
 ## [1.2.0](https://github.com/agberoz/rp-test/compare/v1.1.0...v1.2.0) (2026-10-07)
 
 
