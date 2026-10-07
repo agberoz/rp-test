@@ -1,5 +1,12 @@
 # Changelog
 
+## [1.2.0](https://github.com/agberoz/rp-test/compare/v1.1.0...v1.2.0) (2026-10-07)
+
+
+### Features
+
+* github-runner ([33ffe39](https://github.com/agberoz/rp-test/commit/33ffe39ad7b9a2af1a0d9f85f321ccf463e81aa7))
+
 ## [1.1.0](https://github.com/agberoz/rp-test/compare/v1.0.1...v1.1.0) (2026-10-07)
 
 
