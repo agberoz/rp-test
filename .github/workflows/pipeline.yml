@@ -16,10 +16,14 @@ permissions:
   contents: write
   pull-requests: write
 
+
 jobs:
+
   release:
     runs-on: ubuntu-latest
-    environment: ${{ github.ref_name }}
+    environment:
+      name: ${{ github.ref_name }}
+      url: ${{ steps.version.outputs.url }}
     steps:
       - uses: actions/checkout@v4
         with:
@@ -27,7 +31,15 @@ jobs:
 
       - name: Resolve version
         id: version
-        run: echo "tag=$(git describe --tags --abbrev=0 2>/dev/null || echo untagged)" >> "$GITHUB_OUTPUT"
+        run: |
+          tag=$(git describe --tags --abbrev=0 --match 'v*' 2>/dev/null || echo untagged)
+          if [ "$tag" = untagged ]; then
+            url="$GITHUB_SERVER_URL/$GITHUB_REPOSITORY/commit/$GITHUB_SHA"
+          else
+            url="$GITHUB_SERVER_URL/$GITHUB_REPOSITORY/releases/tag/$tag"
+          fi
+          echo "tag=$tag" >> "$GITHUB_OUTPUT"
+          echo "url=$url" >> "$GITHUB_OUTPUT"
 
       - name: Record release
         env:
